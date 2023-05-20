@@ -6,10 +6,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitFactory {
-    private var TOKEN: String = ""
+    private var ACCESS_TOKEN: String = ""
+    private var REFRESH_TOKEN: String = ""
     private val gson = GsonBuilder().setLenient().create()
     private var client =
-        OkHttpClient.Builder().addInterceptor(OAuthInterceptor("Bearer", TOKEN)).build()
+        OkHttpClient.Builder().addInterceptor(OAuthInterceptor("Bearer", ACCESS_TOKEN)).build()
 
     fun apiService(): NetworkInfoService {
         return Retrofit.Builder().baseUrl("https://plannerok.ru").client(client)
@@ -18,9 +19,13 @@ object RetrofitFactory {
             ).build().create(NetworkInfoService::class.java)
     }
 
-    fun updateJWT(token: String) {
-        TOKEN = token
-        client = OkHttpClient.Builder().addInterceptor(OAuthInterceptor("Bearer", TOKEN)).build()
+    fun updateAccessJWT(token: String) {
+        ACCESS_TOKEN = token
+        client = OkHttpClient.Builder().addInterceptor(OAuthInterceptor("Bearer", ACCESS_TOKEN)).build()
+    }
+
+    fun updateRefreshJWT(token: String) {
+        REFRESH_TOKEN = token
     }
 
 }

@@ -14,7 +14,6 @@ import com.example.mangoandroidtest.callback.ResultCallback
 import com.example.mangoandroidtest.core.Token
 import com.example.mangoandroidtest.service.response.RegisterResponse
 import com.example.mangoandroidtest.ui.viewmodel.AuthViewModel
-import com.example.mangoandroidtest.ui.viewmodel.RegisterViewModel
 import com.example.mangoandroidtest.ui.viewmodel.UserViewModel
 import com.example.mangoandroidtest.util.Constants.USERNAME_REGEX
 import com.example.mangoandroidtest.util.obtainViewModel
@@ -27,7 +26,6 @@ class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
-    private val registerViewModel by lazy { obtainViewModel(RegisterViewModel::class.java) }
     private val userViewModel by lazy { obtainViewModel(UserViewModel::class.java) }
     private val authViewModel by lazy { obtainViewModel(AuthViewModel::class.java) }
 
@@ -94,19 +92,19 @@ class RegisterFragment : Fragment() {
     }
 
     private fun register() {
-        registerViewModel.setPhone(binding.etPhone.text.toString())
-        registerViewModel.setName(binding.etName.text.toString())
-        registerViewModel.setUsername(binding.etUsername.text.toString())
-        registerViewModel.register(object : ResultCallback<RegisterResponse> {
+        authViewModel.setPhone(binding.etPhone.text.toString())
+        authViewModel.setName(binding.etName.text.toString())
+        authViewModel.setUsername(binding.etUsername.text.toString())
+        authViewModel.register(object : ResultCallback<RegisterResponse> {
             override fun onResult(value: RegisterResponse?) {
                 value?.let {
                     userViewModel.setToken(Token(it.access_token, it.refresh_token, it.user_id))
-                    userViewModel.setPhone(registerViewModel.phone.value.toString())
-                    userViewModel.setName(registerViewModel.name.value.toString())
-                    userViewModel.setUsername(registerViewModel.username.value.toString())
+                    userViewModel.setPhone(authViewModel.phone.value.toString())
+                    userViewModel.setName(authViewModel.name.value.toString())
+                    userViewModel.setUsername(authViewModel.username.value.toString())
                     authViewModel.setIsUserAuthenticated(true)
+                    findNavController().navigate(R.id.action_go_to_user_profile)
                 }
-                findNavController().navigate(R.id.action_go_to_user_profile)
             }
 
             override fun onFailure(value: RegisterResponse?) {
@@ -118,7 +116,7 @@ class RegisterFragment : Fragment() {
     }
 
     private fun initObservers() {
-        registerViewModel.phone.observe(viewLifecycleOwner) {
+        authViewModel.phone.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
                 binding.etPhone.setText(it.toString())
             }

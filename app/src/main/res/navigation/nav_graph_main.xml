@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_main"
-    app:startDestination="@id/auth_dest">
+    app:startDestination="@id/user_profile_dest">
 
     <fragment
         android:id="@+id/auth_dest"
@@ -23,6 +23,12 @@
         <action
             android:id="@+id/action_go_to_register"
             app:destination="@id/register_dest"
+            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
+            app:popExitAnim="@animator/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_go_to_user_profile"
+            app:destination="@+id/user_profile_dest"
             app:popEnterAnim="@animator/nav_default_pop_enter_anim"
             app:popExitAnim="@animator/nav_default_pop_exit_anim" />
     </fragment>

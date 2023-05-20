@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.mangoandroidtest.ui.viewmodel.AuthViewModel
-import com.example.mangoandroidtest.ui.viewmodel.RegisterViewModel
 import com.example.mangoandroidtest.ui.viewmodel.UserViewModel
 import online.example.mangoandroidtest.databinding.ActivityMainBinding
 
@@ -15,7 +14,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var authViewModel: AuthViewModel
     private lateinit var userViewModel: UserViewModel
-    private lateinit var registerViewModel: RegisterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +25,6 @@ class MainActivity : AppCompatActivity() {
     private fun instantiateViewModels() {
         authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
-        registerViewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
     }
 
     override fun onDestroy() {

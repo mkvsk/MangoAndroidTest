@@ -12,9 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.mangoandroidtest.callback.ResultCallback
 import com.example.mangoandroidtest.core.Token
+import com.example.mangoandroidtest.service.RetrofitFactory
 import com.example.mangoandroidtest.service.response.CheckAuthCodeResponse
 import com.example.mangoandroidtest.ui.viewmodel.AuthViewModel
-import com.example.mangoandroidtest.ui.viewmodel.RegisterViewModel
 import com.example.mangoandroidtest.ui.viewmodel.UserViewModel
 import com.example.mangoandroidtest.util.obtainViewModel
 import online.example.mangoandroidtest.R
@@ -26,7 +26,6 @@ class VerifyCodeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val authViewModel by lazy { obtainViewModel(AuthViewModel::class.java) }
-    private val registerViewModel by lazy { obtainViewModel(RegisterViewModel::class.java) }
     private val userViewModel by lazy { obtainViewModel(UserViewModel::class.java) }
 
     private var codeLength: Int? = null
@@ -44,6 +43,17 @@ class VerifyCodeFragment : Fragment() {
 
         initViews()
         initListeners()
+        initObservers()
+    }
+
+    private fun initObservers() {
+        authViewModel.isUserAuthenticated.observe(viewLifecycleOwner) {
+            if (it) {
+                findNavController().navigate(R.id.action_go_to_user_profile)
+            } else {
+                findNavController().navigate(R.id.action_go_to_register)
+            }
+        }
     }
 
     private fun initViews() {
@@ -84,11 +94,11 @@ class VerifyCodeFragment : Fragment() {
                                         it.user_id!!
                                     )
                                 )
+                                RetrofitFactory.updateAccessJWT(it.access_token)
+                                RetrofitFactory.updateRefreshJWT(it.refresh_token)
                                 authViewModel.setIsUserAuthenticated(true)
-                                findNavController().navigate(R.id.action_go_to_user_profile)
                             } else {
-                                registerViewModel.setPhone(authViewModel.phone.value.toString())
-                                findNavController().navigate(R.id.action_go_to_register)
+                                authViewModel.setIsUserAuthenticated(false)
                             }
                         }
                     }
