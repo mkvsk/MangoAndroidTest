@@ -30,11 +30,34 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding = true
+    }
+
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+    }
+    namespace 'online.example.mangoandroidtest'
 }
 
 dependencies {
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+//    network
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    implementation 'com.squareup.retrofit2:retrofit:2.7.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.2.1'
+//    country picker
+    implementation 'com.hbb20:ccp:2.5.0'
+//    base
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

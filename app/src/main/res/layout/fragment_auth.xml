@@ -1,0 +1,61 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.mangoandroidtest.AuthFragment">
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/country_code_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="4dp"
+            app:ccpDialog_keyboardAutoPopup="false"
+            app:ccpDialog_textColor="@color/txtColor"
+            app:ccp_arrowSize="16sp"
+            app:ccp_autoFormatNumber="true"
+            app:ccp_contentColor="@color/txtColor"
+            app:ccp_showArrow="true"
+            app:ccp_showFlag="true"
+            app:ccp_showFullName="false"
+            app:ccp_showNameCode="false"
+            app:ccp_showPhoneCode="true"
+            app:ccp_textSize="16sp" />
+
+        <EditText
+            android:id="@+id/etPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:hint="@string/phone_number"
+            android:inputType="phone"
+            android:maxLength="28"
+            android:textColor="@color/txtColor"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCheckUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:enabled="false"
+        android:text="@string/btn_next"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
