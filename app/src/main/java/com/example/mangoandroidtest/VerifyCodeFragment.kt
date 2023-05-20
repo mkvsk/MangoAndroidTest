@@ -1,6 +1,5 @@
 package com.example.mangoandroidtest
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -12,9 +11,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.mangoandroidtest.callback.ResultCallback
+import com.example.mangoandroidtest.core.Token
 import com.example.mangoandroidtest.service.response.CheckAuthCodeResponse
-import com.example.mangoandroidtest.ui.viewmodel.AuthenticationViewModel
+import com.example.mangoandroidtest.ui.viewmodel.AuthViewModel
 import com.example.mangoandroidtest.ui.viewmodel.RegisterViewModel
+import com.example.mangoandroidtest.ui.viewmodel.UserViewModel
 import com.example.mangoandroidtest.util.obtainViewModel
 import online.example.mangoandroidtest.R
 import online.example.mangoandroidtest.databinding.FragmentVerifyCodeBinding
@@ -24,8 +25,9 @@ class VerifyCodeFragment : Fragment() {
     private var _binding: FragmentVerifyCodeBinding? = null
     private val binding get() = _binding!!
 
-    private val authViewModel by lazy { obtainViewModel(AuthenticationViewModel::class.java) }
+    private val authViewModel by lazy { obtainViewModel(AuthViewModel::class.java) }
     private val registerViewModel by lazy { obtainViewModel(RegisterViewModel::class.java) }
+    private val userViewModel by lazy { obtainViewModel(UserViewModel::class.java) }
 
     private var codeLength: Int? = null
 
@@ -42,6 +44,12 @@ class VerifyCodeFragment : Fragment() {
 
         initViews()
         initListeners()
+    }
+
+    private fun initViews() {
+        codeLength =
+            binding.etVCode.filters.filterIsInstance<InputFilter.LengthFilter>()
+                .firstOrNull()?.max!!
     }
 
     private fun initListeners() {
@@ -67,9 +75,17 @@ class VerifyCodeFragment : Fragment() {
                 binding.etVCode.text.toString(),
                 object : ResultCallback<CheckAuthCodeResponse> {
                     override fun onResult(value: CheckAuthCodeResponse?) {
-                        value?.let {
+                        value?.let { it ->
                             if (it.is_user_exists) {
-//                                findNavController().navigate(R.id.action_go_to_profile)
+                                userViewModel.setToken(
+                                    Token(
+                                        it.access_token,
+                                        it.refresh_token,
+                                        it.user_id!!
+                                    )
+                                )
+                                authViewModel.setIsUserAuthenticated(true)
+                                findNavController().navigate(R.id.action_go_to_user_profile)
                             } else {
                                 registerViewModel.setPhone(authViewModel.phone.value.toString())
                                 findNavController().navigate(R.id.action_go_to_register)
@@ -84,12 +100,6 @@ class VerifyCodeFragment : Fragment() {
 
                 })
         }
-    }
-
-    private fun initViews() {
-        codeLength =
-            binding.etVCode.filters.filterIsInstance<InputFilter.LengthFilter>()
-                .firstOrNull()?.max!!
     }
 
     override fun onDestroy() {

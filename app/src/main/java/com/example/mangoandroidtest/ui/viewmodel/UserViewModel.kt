@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mangoandroidtest.core.Avatars
+import com.example.mangoandroidtest.core.Token
 import com.example.mangoandroidtest.ui.repository.UserRepository
 
 class UserViewModel : ViewModel() {
@@ -15,6 +16,13 @@ class UserViewModel : ViewModel() {
 
     fun setName(value: String) {
         _name.value = value
+    }
+
+    private val _token = MutableLiveData<Token>()
+    val token: LiveData<Token> get() = _token
+
+    fun setToken(value: Token) {
+        _token.value = value
     }
 
     private val _username = MutableLiveData("")

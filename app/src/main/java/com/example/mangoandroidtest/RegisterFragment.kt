@@ -9,11 +9,16 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.mangoandroidtest.callback.ResultCallback
+import com.example.mangoandroidtest.core.Token
 import com.example.mangoandroidtest.service.response.RegisterResponse
+import com.example.mangoandroidtest.ui.viewmodel.AuthViewModel
 import com.example.mangoandroidtest.ui.viewmodel.RegisterViewModel
+import com.example.mangoandroidtest.ui.viewmodel.UserViewModel
 import com.example.mangoandroidtest.util.Constants.USERNAME_REGEX
 import com.example.mangoandroidtest.util.obtainViewModel
+import online.example.mangoandroidtest.R
 import online.example.mangoandroidtest.databinding.FragmentRegisterBinding
 import java.util.regex.Pattern
 
@@ -23,6 +28,8 @@ class RegisterFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val registerViewModel by lazy { obtainViewModel(RegisterViewModel::class.java) }
+    private val userViewModel by lazy { obtainViewModel(UserViewModel::class.java) }
+    private val authViewModel by lazy { obtainViewModel(AuthViewModel::class.java) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,34 +84,37 @@ class RegisterFragment : Fragment() {
         })
 
         binding.btnRegister.setOnClickListener {
-
             if (usernameValidate(binding.etUsername)) {
-                Toast.makeText(requireContext(), "Ok", Toast.LENGTH_LONG)
-                        .show()
+                register()
             } else {
                 Toast.makeText(requireContext(), "Bad idea", Toast.LENGTH_LONG)
                     .show()
             }
-
-
-//            registerViewModel.setPhone(binding.etPhone.text.toString())
-//            registerViewModel.setName(binding.etName.text.toString())
-//            registerViewModel.setUsername(binding.etUsername.text.toString())
-//
-//            registerViewModel.register(object : ResultCallback<RegisterResponse> {
-//                override fun onResult(value: RegisterResponse?) {
-////                    value?.let {
-////                        if (it.)
-////                    }
-//                }
-//
-//                override fun onFailure(value: RegisterResponse?) {
-//                    Toast.makeText(requireContext(), "Network error", Toast.LENGTH_LONG)
-//                        .show()
-//                }
-//
-//            })
         }
+    }
+
+    private fun register() {
+        registerViewModel.setPhone(binding.etPhone.text.toString())
+        registerViewModel.setName(binding.etName.text.toString())
+        registerViewModel.setUsername(binding.etUsername.text.toString())
+        registerViewModel.register(object : ResultCallback<RegisterResponse> {
+            override fun onResult(value: RegisterResponse?) {
+                value?.let {
+                    userViewModel.setToken(Token(it.access_token, it.refresh_token, it.user_id))
+                    userViewModel.setPhone(registerViewModel.phone.value.toString())
+                    userViewModel.setName(registerViewModel.name.value.toString())
+                    userViewModel.setUsername(registerViewModel.username.value.toString())
+                    authViewModel.setIsUserAuthenticated(true)
+                }
+                findNavController().navigate(R.id.action_go_to_user_profile)
+            }
+
+            override fun onFailure(value: RegisterResponse?) {
+                Toast.makeText(requireContext(), "Network error", Toast.LENGTH_LONG)
+                    .show()
+            }
+
+        })
     }
 
     private fun initObservers() {

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.mangoandroidtest.callback.ResultCallback
 import com.example.mangoandroidtest.service.response.SendAuthCodeResponse
-import com.example.mangoandroidtest.ui.viewmodel.AuthenticationViewModel
+import com.example.mangoandroidtest.ui.viewmodel.AuthViewModel
 import com.example.mangoandroidtest.util.Constants
 import com.example.mangoandroidtest.util.hideKeyboard
 import com.example.mangoandroidtest.util.obtainViewModel
@@ -24,7 +24,7 @@ class AuthFragment : Fragment() {
     private var _binding: FragmentAuthBinding? = null
     private val binding get() = _binding!!
 
-    private val authViewModel by lazy { obtainViewModel(AuthenticationViewModel::class.java) }
+    private val authViewModel by lazy { obtainViewModel(AuthViewModel::class.java) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -29,6 +29,18 @@
 
     <fragment
         android:id="@+id/register_dest"
-        android:name="com.example.mangoandroidtest.RegisterFragment" />
+        android:name="com.example.mangoandroidtest.RegisterFragment">
 
+        <action
+            android:id="@+id/action_go_to_user_profile"
+            app:destination="@+id/user_profile_dest"
+            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
+            app:popExitAnim="@animator/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/user_profile_dest"
+        android:name="com.example.mangoandroidtest.UserProfileFragment">
+
+    </fragment>
 </navigation>

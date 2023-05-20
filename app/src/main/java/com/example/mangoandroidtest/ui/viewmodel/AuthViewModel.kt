@@ -10,7 +10,7 @@ import com.example.mangoandroidtest.service.response.CheckAuthCodeResponse
 import com.example.mangoandroidtest.service.response.SendAuthCodeResponse
 import com.example.mangoandroidtest.ui.repository.AuthenticationRepository
 
-class AuthenticationViewModel : ViewModel() {
+class AuthViewModel : ViewModel() {
 
     private val repository by lazy { AuthenticationRepository() }
 

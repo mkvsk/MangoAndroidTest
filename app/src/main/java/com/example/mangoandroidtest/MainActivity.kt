@@ -1,12 +1,9 @@
 package com.example.mangoandroidtest
 
-import android.content.Context
 import android.os.Bundle
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.mangoandroidtest.ui.viewmodel.AuthenticationViewModel
+import com.example.mangoandroidtest.ui.viewmodel.AuthViewModel
 import com.example.mangoandroidtest.ui.viewmodel.RegisterViewModel
 import com.example.mangoandroidtest.ui.viewmodel.UserViewModel
 import online.example.mangoandroidtest.databinding.ActivityMainBinding
@@ -16,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var authViewModel: AuthenticationViewModel
+    private lateinit var authViewModel: AuthViewModel
     private lateinit var userViewModel: UserViewModel
     private lateinit var registerViewModel: RegisterViewModel
 
@@ -28,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun instantiateViewModels() {
-        authViewModel = ViewModelProvider(this)[AuthenticationViewModel::class.java]
+        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         registerViewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
     }
