@@ -15,6 +15,7 @@ import com.example.mangoandroidtest.ui.viewmodel.AuthenticationViewModel
 import com.example.mangoandroidtest.util.Constants
 import com.example.mangoandroidtest.util.hideKeyboard
 import com.example.mangoandroidtest.util.obtainViewModel
+import okhttp3.internal.trimSubstring
 import online.example.mangoandroidtest.R
 import online.example.mangoandroidtest.databinding.FragmentAuthBinding
 
@@ -24,7 +25,6 @@ class AuthFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val authViewModel by lazy { obtainViewModel(AuthenticationViewModel::class.java) }
-    private var maxLength: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -97,7 +97,12 @@ class AuthFragment : Fragment() {
     }
 
     private fun initObservers() {
-
+        authViewModel.phone.observe(viewLifecycleOwner) {
+            if (!it.isNullOrEmpty()) {
+                val code = binding.countryCodePicker.selectedCountryCode.toString().length
+                binding.etPhoneNumber.setText(it.toString().trimSubstring(code, it.length))
+            }
+        }
     }
 
     override fun onDestroy() {
