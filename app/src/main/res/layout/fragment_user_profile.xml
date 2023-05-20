@@ -41,16 +41,136 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:paddingHorizontal="10dp">
 
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imageUserPhoto"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:elevation="4dp"
+                    android:padding="3dp"
+                    android:translationZ="2dp"
+                    app:layout_constraintDimensionRatio="H,1:1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
+                    app:strokeColor="@color/purple_500"
+                    app:strokeWidth="2dp" />
 
+                <TextView
+                    android:id="@+id/tvUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:maxLength="32"
+                    android:text="Username"
+                    android:textAlignment="center"
+                    android:textColor="@color/txtColor"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageUserPhoto" />
+
+                <ImageView
+                    android:id="@+id/icPhone"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_phone"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvUsername" />
+
+                <TextView
+                    android:id="@+id/tvPhone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:maxLength="32"
+                    android:text="123456789"
+                    android:textColor="@color/txtColor"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@id/icPhone"
+                    app:layout_constraintLeft_toRightOf="@id/icPhone"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/icPhone" />
+
+                <ImageView
+                    android:id="@+id/icLocation"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_location"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPhone" />
+
+                <TextView
+                    android:id="@+id/tvLocation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:maxLength="32"
+                    android:text="Location"
+                    android:textColor="@color/txtColor"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@id/icLocation"
+                    app:layout_constraintLeft_toRightOf="@id/icLocation"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/icLocation" />
+
+                <ImageView
+                    android:id="@+id/icBday"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_bday"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvLocation" />
+
+                <TextView
+                    android:id="@+id/tvBday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:maxLength="32"
+                    android:text="1.2.1234"
+                    android:textColor="@color/txtColor"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@id/icBday"
+                    app:layout_constraintLeft_toRightOf="@id/icBday"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/icBday" />
+
+                <ImageView
+                    android:id="@+id/icZodiac"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_zodiac"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvBday" />
+
+                <TextView
+                    android:id="@+id/tvZodiac"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:maxLength="32"
+                    android:text="Zodiac"
+                    android:textColor="@color/txtColor"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@id/icZodiac"
+                    app:layout_constraintLeft_toRightOf="@id/icZodiac"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/icZodiac" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
