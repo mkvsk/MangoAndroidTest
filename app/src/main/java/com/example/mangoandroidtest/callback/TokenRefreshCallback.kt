@@ -2,8 +2,7 @@ package com.example.mangoandroidtest.callback
 
 import java.io.Serializable
 
-interface ResultCallback<T> : Serializable {
+interface TokenRefreshCallback<T> : Serializable {
     fun onResult(value: T?)
     fun onFailure(value: T?)
-    fun onTokenExpired()
 }

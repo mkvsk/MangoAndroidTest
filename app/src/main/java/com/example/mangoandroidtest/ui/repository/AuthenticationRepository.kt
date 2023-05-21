@@ -86,7 +86,32 @@ class AuthenticationRepository {
     }
 
     fun register(request: RegisterRequest, callback: ResultCallback<RegisterResponse>) {
-        val response = RegisterResponse("", "", 1337)
-        callback.onResult(response)
+        scope.launch(Dispatchers.IO) {
+            RetrofitFactory.apiService().userRegister(request)
+                .enqueue(object : Callback<RegisterResponse> {
+                    override fun onResponse(
+                        call: Call<RegisterResponse>,
+                        response: Response<RegisterResponse>
+                    ) {
+                        if (response.code() == 201 || response.code() == 200) {
+                            Log.d(TAG, "REGISTER CODE OK ${response.body().toString()}")
+                            callback.onResult(response.body())
+                        } else {
+                            Log.d(
+                                TAG,
+                                "onResponse: REGISTER CODE ERROR ${response.body().toString()}"
+                            )
+                            callback.onFailure(null)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                        Log.d(TAG, "REGISTER CODE EXCEPTION")
+                        t.printStackTrace()
+                        callback.onFailure(null)
+                    }
+
+                })
+        }
     }
 }

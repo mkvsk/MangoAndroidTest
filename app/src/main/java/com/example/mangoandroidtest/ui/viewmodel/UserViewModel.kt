@@ -3,13 +3,29 @@ package com.example.mangoandroidtest.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.mangoandroidtest.callback.ResultCallback
+import com.example.mangoandroidtest.callback.TokenRefreshCallback
 import com.example.mangoandroidtest.core.Avatars
 import com.example.mangoandroidtest.core.Token
+import com.example.mangoandroidtest.core.User
+import com.example.mangoandroidtest.service.RetrofitFactory
+import com.example.mangoandroidtest.service.request.UserUpdateAvatarRequest
+import com.example.mangoandroidtest.service.request.UserUpdateRequest
+import com.example.mangoandroidtest.service.response.GetCurrentUserResponse
+import com.example.mangoandroidtest.service.response.RefreshTokenResponse
+import com.example.mangoandroidtest.service.response.UserUpdateResponse
 import com.example.mangoandroidtest.ui.repository.UserRepository
 
 class UserViewModel : ViewModel() {
 
     private val repository by lazy { UserRepository() }
+
+    private val _currentUser = MutableLiveData(User())
+    val currentUser: LiveData<User?> get() = _currentUser
+
+    fun setCurrentUser(value: User?) {
+        _currentUser.value = value
+    }
 
     private val _name = MutableLiveData("")
     val name: LiveData<String> get() = _name
@@ -121,6 +137,85 @@ class UserViewModel : ViewModel() {
 
     fun setAvatars(value: Avatars) {
         _avatars.value = value
+    }
+
+    fun getCurrentUser() {
+        repository.getCurrentUser(object : ResultCallback<GetCurrentUserResponse> {
+            override fun onResult(value: GetCurrentUserResponse?) {
+                value?.let {
+                    setCurrentUser(it.profile_data)
+                }
+            }
+
+            override fun onFailure(value: GetCurrentUserResponse?) {
+                setCurrentUser(null)
+            }
+
+            override fun onTokenExpired() {
+                refreshToken(object : TokenRefreshCallback<RefreshTokenResponse> {
+                    override fun onResult(value: RefreshTokenResponse?) {
+                        value?.let {
+                            RetrofitFactory.updateAccessJWT(it.access_token)
+                            RetrofitFactory.updateRefreshJWT(it.refresh_token)
+                            getCurrentUser()
+                        }
+                    }
+
+                    override fun onFailure(value: RefreshTokenResponse?) {
+
+                    }
+
+                })
+            }
+
+        })
+
+    }
+
+    fun updateCurrentUser() {
+        val request = UserUpdateRequest("", "", "", "", "", "", "", UserUpdateAvatarRequest("", ""))
+        repository.updateCurrentUser(
+            request,
+            object : ResultCallback<UserUpdateResponse> {
+                override fun onResult(value: UserUpdateResponse?) {
+
+                }
+
+                override fun onFailure(value: UserUpdateResponse?) {
+
+                }
+
+                override fun onTokenExpired() {
+                    refreshToken(object : TokenRefreshCallback<RefreshTokenResponse> {
+                        override fun onResult(value: RefreshTokenResponse?) {
+                            value?.let {
+                                RetrofitFactory.updateAccessJWT(it.access_token)
+                                RetrofitFactory.updateRefreshJWT(it.refresh_token)
+                                updateCurrentUser()
+                            }
+                        }
+
+                        override fun onFailure(value: RefreshTokenResponse?) {
+
+                        }
+
+                    })
+                }
+            })
+
+    }
+
+    private fun refreshToken(callback: TokenRefreshCallback<RefreshTokenResponse>) {
+        repository.refreshToken(object : TokenRefreshCallback<RefreshTokenResponse> {
+            override fun onResult(value: RefreshTokenResponse?) {
+                callback.onResult(value)
+            }
+
+            override fun onFailure(value: RefreshTokenResponse?) {
+                callback.onFailure(null)
+            }
+
+        })
     }
 
 }

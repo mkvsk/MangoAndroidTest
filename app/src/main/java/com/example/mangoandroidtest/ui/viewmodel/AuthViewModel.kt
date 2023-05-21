@@ -55,6 +55,7 @@ class AuthViewModel : ViewModel() {
                 callback.onFailure(value)
             }
 
+            override fun onTokenExpired() {}
         })
     }
 
@@ -69,6 +70,7 @@ class AuthViewModel : ViewModel() {
                 callback.onFailure(value)
             }
 
+            override fun onTokenExpired() {}
         })
     }
 
@@ -83,6 +85,7 @@ class AuthViewModel : ViewModel() {
                 callback.onFailure(value)
             }
 
+            override fun onTokenExpired() {}
         })
     }
 }

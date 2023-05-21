@@ -67,6 +67,8 @@ class AuthFragment : Fragment() {
                     Toast.makeText(requireContext(), "Network error", Toast.LENGTH_LONG)
                         .show()
                 }
+
+                override fun onTokenExpired(){}
             })
 
         }

@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitFactory {
     private var ACCESS_TOKEN: String = ""
-    private var REFRESH_TOKEN: String = ""
+    var REFRESH_TOKEN: String = ""
     private val gson = GsonBuilder().setLenient().create()
     private var client =
         OkHttpClient.Builder().addInterceptor(OAuthInterceptor("Bearer", ACCESS_TOKEN)).build()
@@ -21,7 +21,8 @@ object RetrofitFactory {
 
     fun updateAccessJWT(token: String) {
         ACCESS_TOKEN = token
-        client = OkHttpClient.Builder().addInterceptor(OAuthInterceptor("Bearer", ACCESS_TOKEN)).build()
+        client =
+            OkHttpClient.Builder().addInterceptor(OAuthInterceptor("Bearer", ACCESS_TOKEN)).build()
     }
 
     fun updateRefreshJWT(token: String) {

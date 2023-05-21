@@ -100,7 +100,7 @@
                 app:layout_constraintTop_toTopOf="@id/icPhone" />
 
             <ImageView
-                android:id="@+id/icLocation"
+                android:id="@+id/icCity"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="10dp"
@@ -109,7 +109,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tvPhone" />
 
             <TextView
-                android:id="@+id/tvLocation"
+                android:id="@+id/tvCity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -117,10 +117,10 @@
                 android:text="Location"
                 android:textColor="@color/txt_color"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@id/icLocation"
-                app:layout_constraintLeft_toRightOf="@id/icLocation"
+                app:layout_constraintBottom_toBottomOf="@id/icCity"
+                app:layout_constraintLeft_toRightOf="@id/icCity"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/icLocation" />
+                app:layout_constraintTop_toTopOf="@id/icCity" />
 
             <ImageView
                 android:id="@+id/icBday"
@@ -129,7 +129,7 @@
                 android:layout_marginTop="10dp"
                 android:src="@drawable/ic_bday"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvLocation" />
+                app:layout_constraintTop_toBottomOf="@id/tvCity" />
 
             <TextView
                 android:id="@+id/tvBday"

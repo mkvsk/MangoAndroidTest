@@ -107,6 +107,7 @@ class RegisterFragment : Fragment() {
                     .show()
             }
 
+            override fun onTokenExpired() {}
         })
     }
 
