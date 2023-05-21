@@ -1,0 +1,192 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mangoandroidtest.EditUserProfileFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.Toolbar xmlns:local="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/toolbar_color"
+            android:minHeight="?attr/actionBarSize"
+            local:navigationIcon="@drawable/ic_back"
+            local:popupTheme="@style/ThemeOverlay.MaterialComponents.Toolbar.Popup.Primary."
+            local:title="Edit profile"
+            local:titleTextAppearance="@style/txt_toolbar"
+            local:titleTextColor="@color/toolbar_title_color" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        style="@style/my_material_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        app:cardElevation="4dp"
+        app:cardPreventCornerOverlap="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imageUserPhoto"
+                android:layout_width="100dp"
+                android:layout_height="0dp"
+                android:background="@drawable/round_corner_bgr_stroke"
+                android:elevation="4dp"
+                android:padding="4dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ava"
+                android:translationZ="2dp"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/ShapeAppearanceOverlay.App.CornerSize10Percent"
+                app:strokeColor="@color/ic_color"
+                app:strokeWidth="2dp" />
+
+            <Button
+                android:id="@+id/btnAddEditPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_upload_photo"
+                app:layout_constraintBottom_toBottomOf="@id/imageUserPhoto"
+                app:layout_constraintLeft_toRightOf="@id/imageUserPhoto"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imageUserPhoto" />
+
+            <LinearLayout
+                android:id="@+id/llHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="40dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/imageUserPhoto">
+
+                <EditText
+                    android:id="@+id/etPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/round_corner_bgr"
+                    android:enabled="false"
+                    android:hint="@string/hint_phone"
+                    android:maxLength="30"
+                    android:paddingHorizontal="10dp"
+                    android:textColor="@color/txt_color"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/etUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_bgr"
+                    android:enabled="false"
+                    android:hint="@string/hint_username"
+                    android:maxLength="128"
+                    android:paddingHorizontal="10dp"
+                    android:textColor="@color/txt_color"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/etName"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_bgr_stroke"
+                    android:hint="@string/hint_name"
+                    android:inputType="textPersonName"
+                    android:paddingHorizontal="10dp"
+                    android:textColor="@color/txt_color"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/etStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_bgr_stroke"
+                    android:hint="@string/hint_status"
+                    android:paddingHorizontal="10dp"
+                    android:textColor="@color/txt_color"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/etBirthday"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_bgr_stroke"
+                    android:hint="@string/hint_birthday"
+                    android:inputType="date"
+                    android:paddingHorizontal="10dp"
+                    android:textColor="@color/txt_color"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/etCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_bgr_stroke"
+                    android:hint="@string/hint_city"
+                    android:paddingHorizontal="10dp"
+                    android:textColor="@color/txt_color"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/etVk"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_bgr_stroke"
+                    android:hint="@string/hint_vk"
+                    android:paddingHorizontal="10dp"
+                    android:textColor="@color/txt_color"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/etInstagram"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_corner_bgr_stroke"
+                    android:hint="@string/hint_instagram"
+                    android:paddingHorizontal="10dp"
+                    android:textColor="@color/txt_color"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:enabled="true"
+                    android:text="@string/btn_save" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

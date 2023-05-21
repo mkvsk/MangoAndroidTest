@@ -7,7 +7,6 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
-import retrofit2.http.Query
 
 interface NetworkInfoService {
 
@@ -30,9 +29,8 @@ interface NetworkInfoService {
     @PUT("/api/v1/users/me/")
     fun updateCurrentUser(@Body request: UserUpdateRequest): Call<UserUpdateResponse>
 
-    @POST("/api/v1/users/refresh-token")
-    fun refreshToken(@Body request: RefreshTokenRequest) : Call<RefreshTokenResponse>
-//    @GET("/api/v1/users/me")
-//    fun getCurrentUser(
-//    )
+    @POST("/api/v1/users/refresh-token/")
+    fun refreshToken(@Body request: RefreshTokenRequest): Call<RefreshTokenResponse>
+
+
 }

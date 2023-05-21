@@ -5,6 +5,11 @@
     android:layout_height="match_parent"
     tools:context="com.example.mangoandroidtest.UserProfileFragment">
 
+    <include
+        android:id="@+id/loader"
+        layout="@layout/include_progress_overlay" />
+
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
@@ -17,10 +22,8 @@
             android:layout_height="wrap_content"
             android:background="@color/toolbar_color"
             android:minHeight="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
             local:popupTheme="@style/ThemeOverlay.MaterialComponents.Toolbar.Popup.Primary."
             local:title="Username"
-            local:menu="@menu/user_profile_menu"
             local:titleTextAppearance="@style/txt_toolbar"
             local:titleTextColor="@color/toolbar_title_color" />
     </com.google.android.material.appbar.AppBarLayout>
@@ -51,10 +54,12 @@
                 android:id="@+id/imageUserPhoto"
                 android:layout_width="180dp"
                 android:layout_height="0dp"
-                android:background="@drawable/round_corner_bgr"
+                android:background="@drawable/round_corner_bgr_stroke"
                 android:elevation="4dp"
                 android:padding="4dp"
                 android:translationZ="2dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ava"
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

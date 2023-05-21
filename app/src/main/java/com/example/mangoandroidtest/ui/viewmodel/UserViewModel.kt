@@ -1,5 +1,6 @@
 package com.example.mangoandroidtest.ui.viewmodel
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -139,16 +140,39 @@ class UserViewModel : ViewModel() {
         _avatars.value = value
     }
 
+    private val _userUpdateAvatar = MutableLiveData<UserUpdateAvatarRequest>()
+    val userUpdateAvatar: LiveData<UserUpdateAvatarRequest> get() = _userUpdateAvatar
+
+    fun setUserUpdateAvatar(value: UserUpdateAvatarRequest) {
+        _userUpdateAvatar.value = value
+    }
+
+    private val _error = MutableLiveData(false)
+    val error: LiveData<Boolean> get() = _error
+
+    fun setError(value: Boolean) {
+        _error.value = value
+    }
+
+    private val _result = MutableLiveData<Int>(0)
+    val result: LiveData<Int> get() = _result
+
+    fun setResult(value: Int) {
+        _result.value = value
+    }
+
     fun getCurrentUser() {
         repository.getCurrentUser(object : ResultCallback<GetCurrentUserResponse> {
             override fun onResult(value: GetCurrentUserResponse?) {
                 value?.let {
                     setCurrentUser(it.profile_data)
+                    setResult(1)
                 }
             }
 
             override fun onFailure(value: GetCurrentUserResponse?) {
                 setCurrentUser(null)
+                setResult(-1)
             }
 
             override fun onTokenExpired() {
@@ -161,9 +185,7 @@ class UserViewModel : ViewModel() {
                         }
                     }
 
-                    override fun onFailure(value: RefreshTokenResponse?) {
-
-                    }
+                    override fun onFailure(value: RefreshTokenResponse?) {}
 
                 })
             }
@@ -173,16 +195,30 @@ class UserViewModel : ViewModel() {
     }
 
     fun updateCurrentUser() {
-        val request = UserUpdateRequest("", "", "", "", "", "", "", UserUpdateAvatarRequest("", ""))
+        val request = UserUpdateRequest(
+            name.value!!,
+            username.value!!,
+            birthday.value!!,
+            city.value!!,
+            vk.value,
+            instagram.value,
+            status.value,
+            UserUpdateAvatarRequest(
+                userUpdateAvatar.value!!.filename,
+                userUpdateAvatar.value!!.base_64
+            )
+        )
         repository.updateCurrentUser(
             request,
             object : ResultCallback<UserUpdateResponse> {
                 override fun onResult(value: UserUpdateResponse?) {
-
+                    value?.let {
+                        setAvatars(it.avatars)
+                    }
                 }
 
                 override fun onFailure(value: UserUpdateResponse?) {
-
+                    setError(true)
                 }
 
                 override fun onTokenExpired() {
@@ -196,7 +232,6 @@ class UserViewModel : ViewModel() {
                         }
 
                         override fun onFailure(value: RefreshTokenResponse?) {
-
                         }
 
                     })

@@ -34,44 +34,45 @@ class UserProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.user_profile_menu, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when (menuItem.itemId) {
-                    R.id.item_user_edit_profile -> {
-//                        findNavController().navigate(R.id.action_go_to_edit_user_profile)
-                        true
-                    }
-                    else -> false
-                }
-            }
-
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
-        initObservers()
+        binding.loader.progressOverlay.visibility = View.VISIBLE
+        setupMenu()
         userViewModel.getCurrentUser()
+        initObservers()
+    }
+
+    private fun setupMenu() {
+        binding.toolbar.inflateMenu(R.menu.user_profile_menu)
+        binding.toolbar.setOnMenuItemClickListener(this::onOptionsItemSelected)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.item_user_edit_profile -> {
+                findNavController().navigate(R.id.action_go_to_edit_user_profile)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun initObservers() {
-        userViewModel.currentUser.observe(viewLifecycleOwner) {
-            if (it != null) {
-                drawData(userViewModel.currentUser.value!!)
-            } else {
-                Toast.makeText(context, "Something went wrong...", Toast.LENGTH_LONG).show()
+        userViewModel.result.observe(viewLifecycleOwner) {
+            when (it) {
+                1 -> {
+                    drawData(userViewModel.currentUser.value!!)
+                    userViewModel.setResult(0)
+                }
+                -1 -> {
+                    Toast.makeText(context, "Something went wrong...", Toast.LENGTH_LONG).show()
+                    userViewModel.setResult(0)
+                }
             }
+
         }
 
     }
 
     private fun drawData(user: User) {
-        Log.d("TAG", "drawData: ${user}")
-//        TODO ava
-
         binding.toolbar.title = user.username
         binding.tvName.text = user.name
 
@@ -92,7 +93,7 @@ class UserProfileFragment : Fragment() {
         }
 
         if (user.birthday.isNotEmpty()) {
-            binding.tvBday.text = user.city
+            binding.tvBday.text = user.birthday
             val dateOfBirth = LocalDate.parse(user.birthday, FormatUtils.dateFormat)
             binding.tvZodiac.text =
                 FormatUtils.identifyZodiacSign(dateOfBirth.dayOfMonth, dateOfBirth.month)
@@ -117,6 +118,7 @@ class UserProfileFragment : Fragment() {
             binding.icInstagram.visibility = View.GONE
         }
 
+        binding.loader.progressOverlay.visibility = View.GONE
     }
 
 }

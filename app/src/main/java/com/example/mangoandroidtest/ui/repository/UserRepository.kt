@@ -97,25 +97,49 @@ class UserRepository {
         }
     }
 
-//TODO do
     fun updateCurrentUser(
         request: UserUpdateRequest,
         callback: ResultCallback<UserUpdateResponse>
     ) {
         scope.launch(Dispatchers.IO) {
-            RetrofitFactory.apiService().updateCurrentUser(request).enqueue(object : Callback<UserUpdateResponse> {
-                override fun onResponse(
-                    call: Call<UserUpdateResponse>,
-                    response: Response<UserUpdateResponse>
-                ) {
+            RetrofitFactory.apiService().updateCurrentUser(request)
+                .enqueue(object : Callback<UserUpdateResponse> {
+                    override fun onResponse(
+                        call: Call<UserUpdateResponse>,
+                        response: Response<UserUpdateResponse>
+                    ) {
+                        when (response.code()) {
+                            200, 201 -> {
+                                Log.d(TAG, "UPDATE CURRENT USER OK ${response.body().toString()}")
+                                callback.onResult(response.body())
+                            }
+                            401 -> {
+                                Log.d(
+                                    TAG,
+                                    "UPDATE CURRENT USER TOKEN EXPIRED ${
+                                        response.body().toString()
+                                    }"
+                                )
+                                callback.onTokenExpired()
+                            }
+                            else -> {
+                                Log.d(
+                                    TAG,
+                                    "UPDATE CURRENT USER CODE ERROR ${response.body().toString()}"
+                                )
+                                callback.onFailure(null)
+                            }
+                        }
 
-                }
+                    }
 
-                override fun onFailure(call: Call<UserUpdateResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<UserUpdateResponse>, t: Throwable) {
+                        Log.d(TAG, "UPDATE CURRENT USER EXCEPTION")
+                        t.printStackTrace()
+                        callback.onFailure(null)
+                    }
 
-                }
-
-            })
+                })
         }
     }
 

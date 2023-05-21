@@ -51,7 +51,7 @@
                 android:id="@+id/etVCode"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/round_corner_bgr"
+                android:background="@drawable/round_corner_bgr_stroke"
                 android:hint="@string/hint_enter_verification_code"
                 android:inputType="number"
                 android:maxLength="6"
