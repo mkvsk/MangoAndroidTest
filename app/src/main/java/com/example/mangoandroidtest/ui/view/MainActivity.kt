@@ -1,4 +1,4 @@
-package com.example.mangoandroidtest
+package com.example.mangoandroidtest.ui.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

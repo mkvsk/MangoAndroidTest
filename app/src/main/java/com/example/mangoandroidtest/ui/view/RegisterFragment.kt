@@ -1,4 +1,4 @@
-package com.example.mangoandroidtest
+package com.example.mangoandroidtest.ui.view
 
 import android.os.Bundle
 import android.text.Editable
@@ -12,7 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.mangoandroidtest.callback.ResultCallback
 import com.example.mangoandroidtest.core.Token
-import com.example.mangoandroidtest.service.response.RegisterResponse
+import com.example.mangoandroidtest.network.RetrofitFactory
+import com.example.mangoandroidtest.network.response.RegisterResponse
 import com.example.mangoandroidtest.ui.viewmodel.AuthViewModel
 import com.example.mangoandroidtest.ui.viewmodel.UserViewModel
 import com.example.mangoandroidtest.util.Constants.USERNAME_REGEX
@@ -20,7 +21,6 @@ import com.example.mangoandroidtest.util.obtainViewModel
 import online.example.mangoandroidtest.R
 import online.example.mangoandroidtest.databinding.FragmentRegisterBinding
 import java.util.regex.Pattern
-
 
 class RegisterFragment : Fragment() {
     private var _binding: FragmentRegisterBinding? = null
@@ -52,9 +52,7 @@ class RegisterFragment : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                if (p0!!.isNotEmpty()) {
-                    checkData()
-                }
+                checkData()
             }
 
         })
@@ -67,10 +65,7 @@ class RegisterFragment : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-
-                if (p0!!.isNotEmpty() && p0.length > 4) {
-                    checkData()
-                }
+                checkData()
             }
 
         })
@@ -97,6 +92,8 @@ class RegisterFragment : Fragment() {
                     userViewModel.setName(authViewModel.name.value.toString())
                     userViewModel.setUsername(authViewModel.username.value.toString())
                     authViewModel.setIsUserAuthenticated(true)
+                    RetrofitFactory.updateAccessJWT(it.access_token)
+                    RetrofitFactory.updateRefreshJWT(it.refresh_token)
                     findNavController().navigate(R.id.action_go_to_user_profile)
                 }
             }
@@ -119,11 +116,9 @@ class RegisterFragment : Fragment() {
     }
 
     private fun checkData() {
-        if ((!binding.etName.text.isNullOrEmpty()) && (!binding.etUsername.text.isNullOrEmpty())) {
-            binding.btnRegister.isEnabled = true
-        } else {
-            binding.btnRegister.isEnabled = false
-        }
+        binding.btnRegister.isEnabled =
+            (!binding.etName.text.isNullOrEmpty() && binding.etName.text.length > 4)
+                    && (!binding.etUsername.text.isNullOrEmpty() && binding.etUsername.text.length > 4)
     }
 
     private fun usernameValidate(et: EditText): Boolean {

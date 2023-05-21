@@ -16,7 +16,7 @@
         android:theme="@style/Theme.MangoAndroidTest"
         tools:targetApi="31">
         <activity
-            android:name="com.example.mangoandroidtest.MainActivity"
+            android:name="com.example.mangoandroidtest.ui.view.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"

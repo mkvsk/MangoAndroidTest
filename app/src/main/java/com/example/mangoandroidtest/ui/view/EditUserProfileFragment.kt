@@ -1,19 +1,17 @@
-package com.example.mangoandroidtest
+package com.example.mangoandroidtest.ui.view
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Base64
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.mangoandroidtest.core.User
-import com.example.mangoandroidtest.service.request.UserUpdateAvatarRequest
+import com.example.mangoandroidtest.network.request.UserUpdateAvatarRequest
 import com.example.mangoandroidtest.ui.viewmodel.UserViewModel
 import com.example.mangoandroidtest.util.obtainViewModel
 import online.example.mangoandroidtest.R
@@ -96,6 +94,13 @@ class EditUserProfileFragment : Fragment() {
                 userViewModel.setError(false)
             }
         }
+
+        userViewModel.closeView.observe(viewLifecycleOwner) {
+            if (it) {
+                userViewModel.setCloseView(false)
+                findNavController().popBackStack()
+            }
+        }
     }
 
     private fun drawData() {
@@ -106,23 +111,23 @@ class EditUserProfileFragment : Fragment() {
             binding.etName.setText(user.name)
         }
 
-        if (user.status.isNotEmpty()) {
+        if (!user.status.isNullOrBlank()) {
             binding.etStatus.setText(user.status)
         }
 
-        if (user.birthday.isNotEmpty()) {
+        if (!user.birthday.isNullOrBlank()) {
             binding.etBirthday.setText(user.birthday)
         }
 
-        if (user.city.isNotEmpty()) {
+        if (!user.city.isNullOrBlank()) {
             binding.etCity.setText(user.city)
         }
 
-        if (user.vk.isNotEmpty()) {
+        if (!user.vk.isNullOrBlank()) {
             binding.etVk.setText(user.vk)
         }
 
-        if (user.instagram.isNotEmpty()) {
+        if (!user.instagram.isNullOrBlank()) {
             binding.etInstagram.setText(user.instagram)
         }
     }

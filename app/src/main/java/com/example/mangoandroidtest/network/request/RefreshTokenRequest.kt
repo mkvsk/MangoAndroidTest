@@ -1,4 +1,4 @@
-package com.example.mangoandroidtest.service.request
+package com.example.mangoandroidtest.network.request
 
 class RefreshTokenRequest(
     var refresh_token: String? = ""

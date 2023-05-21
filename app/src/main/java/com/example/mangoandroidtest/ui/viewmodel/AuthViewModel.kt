@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mangoandroidtest.callback.ResultCallback
-import com.example.mangoandroidtest.service.request.CheckAuthCodeRequest
-import com.example.mangoandroidtest.service.request.RegisterRequest
-import com.example.mangoandroidtest.service.request.SendAuthCodeRequest
-import com.example.mangoandroidtest.service.response.CheckAuthCodeResponse
-import com.example.mangoandroidtest.service.response.RegisterResponse
-import com.example.mangoandroidtest.service.response.SendAuthCodeResponse
+import com.example.mangoandroidtest.network.request.CheckAuthCodeRequest
+import com.example.mangoandroidtest.network.request.RegisterRequest
+import com.example.mangoandroidtest.network.request.SendAuthCodeRequest
+import com.example.mangoandroidtest.network.response.CheckAuthCodeResponse
+import com.example.mangoandroidtest.network.response.RegisterResponse
+import com.example.mangoandroidtest.network.response.SendAuthCodeResponse
 import com.example.mangoandroidtest.ui.repository.AuthenticationRepository
 
 class AuthViewModel : ViewModel() {

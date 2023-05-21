@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/auth_dest"
-        android:name="com.example.mangoandroidtest.AuthFragment"
+        android:name="com.example.mangoandroidtest.ui.view.AuthFragment"
         android:label="">
 
         <action
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/verify_code_dest"
-        android:name="com.example.mangoandroidtest.VerifyCodeFragment">
+        android:name="com.example.mangoandroidtest.ui.view.VerifyCodeFragment">
         <action
             android:id="@+id/action_go_to_register"
             app:destination="@id/register_dest"
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/register_dest"
-        android:name="com.example.mangoandroidtest.RegisterFragment">
+        android:name="com.example.mangoandroidtest.ui.view.RegisterFragment">
 
         <action
             android:id="@+id/action_go_to_user_profile"
@@ -45,7 +45,7 @@
 
     <fragment
         android:id="@+id/user_profile_dest"
-        android:name="com.example.mangoandroidtest.UserProfileFragment">
+        android:name="com.example.mangoandroidtest.ui.view.UserProfileFragment">
 
         <action
             android:id="@+id/action_go_to_edit_user_profile"
@@ -56,7 +56,7 @@
 
     <fragment
         android:id="@+id/edit_user_profile_dest"
-        android:name="com.example.mangoandroidtest.EditUserProfileFragment">
+        android:name="com.example.mangoandroidtest.ui.view.EditUserProfileFragment">
 
         <action
             android:id="@+id/action_go_to_user_profile"

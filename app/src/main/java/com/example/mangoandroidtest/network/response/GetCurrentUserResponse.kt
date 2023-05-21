@@ -1,4 +1,4 @@
-package com.example.mangoandroidtest.service.response
+package com.example.mangoandroidtest.network.response
 
 import com.example.mangoandroidtest.core.User
 

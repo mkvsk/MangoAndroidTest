@@ -1,4 +1,4 @@
-package com.example.mangoandroidtest.service.response
+package com.example.mangoandroidtest.network.response
 
 class CheckAuthCodeResponse(
     val refresh_token: String = "",

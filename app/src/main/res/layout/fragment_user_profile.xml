@@ -3,12 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mangoandroidtest.UserProfileFragment">
+    tools:context="com.example.mangoandroidtest.ui.view.UserProfileFragment">
 
     <include
         android:id="@+id/loader"
         layout="@layout/include_progress_overlay" />
-
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -57,9 +56,9 @@
                 android:background="@drawable/round_corner_bgr_stroke"
                 android:elevation="4dp"
                 android:padding="4dp"
-                android:translationZ="2dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ava"
+                android:translationZ="2dp"
                 app:layout_constraintDimensionRatio="H,1:1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -233,9 +232,6 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@id/icInstagram" />
 
-<!--            name, vk, inst, -->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

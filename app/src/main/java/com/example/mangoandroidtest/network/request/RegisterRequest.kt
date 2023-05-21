@@ -1,4 +1,4 @@
-package com.example.mangoandroidtest.service.request
+package com.example.mangoandroidtest.network.request
 
 import lombok.Builder
 import lombok.Data

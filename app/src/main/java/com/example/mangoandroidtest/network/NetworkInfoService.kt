@@ -1,7 +1,7 @@
-package com.example.mangoandroidtest.service
+package com.example.mangoandroidtest.network
 
-import com.example.mangoandroidtest.service.request.*
-import com.example.mangoandroidtest.service.response.*
+import com.example.mangoandroidtest.network.request.*
+import com.example.mangoandroidtest.network.response.*
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET

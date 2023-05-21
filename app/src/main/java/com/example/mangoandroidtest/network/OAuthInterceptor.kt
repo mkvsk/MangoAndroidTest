@@ -1,4 +1,4 @@
-package com.example.mangoandroidtest.service
+package com.example.mangoandroidtest.network
 
 import okhttp3.Interceptor
 import okhttp3.Response

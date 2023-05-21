@@ -1,13 +1,13 @@
-package com.example.mangoandroidtest
+package com.example.mangoandroidtest.ui.view
 
 import android.os.Bundle
-import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.mangoandroidtest.core.User
 import com.example.mangoandroidtest.ui.viewmodel.UserViewModel
@@ -16,7 +16,6 @@ import com.example.mangoandroidtest.util.obtainViewModel
 import online.example.mangoandroidtest.R
 import online.example.mangoandroidtest.databinding.FragmentUserProfileBinding
 import java.time.LocalDate
-
 
 class UserProfileFragment : Fragment() {
     private var _binding: FragmentUserProfileBinding? = null
@@ -38,6 +37,16 @@ class UserProfileFragment : Fragment() {
         setupMenu()
         userViewModel.getCurrentUser()
         initObservers()
+        handleBackPressed()
+    }
+
+    private fun handleBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                }
+            })
     }
 
     private fun setupMenu() {
@@ -76,7 +85,7 @@ class UserProfileFragment : Fragment() {
         binding.toolbar.title = user.username
         binding.tvName.text = user.name
 
-        if (user.status.isNotEmpty()) {
+        if (!user.status.isNullOrBlank()) {
             binding.tvStatus.text =
                 String.format(requireContext().getString(R.string.format_status), user.status)
         } else {
@@ -85,14 +94,14 @@ class UserProfileFragment : Fragment() {
 
         binding.tvPhone.text = user.phone
 
-        if (user.city.isNotEmpty()) {
+        if (!user.city.isNullOrBlank()) {
             binding.tvCity.text = user.city
         } else {
             binding.tvCity.visibility = View.GONE
             binding.icCity.visibility = View.GONE
         }
 
-        if (user.birthday.isNotEmpty()) {
+        if (!user.birthday.isNullOrBlank()) {
             binding.tvBday.text = user.birthday
             val dateOfBirth = LocalDate.parse(user.birthday, FormatUtils.dateFormat)
             binding.tvZodiac.text =
@@ -104,15 +113,15 @@ class UserProfileFragment : Fragment() {
             binding.icZodiac.visibility = View.GONE
         }
 
-        if (user.vk.isNotEmpty()) {
+        if (!user.vk.isNullOrBlank()) {
             binding.tvVk.text = user.vk
         } else {
             binding.tvVk.visibility = View.GONE
             binding.icVk.visibility = View.GONE
         }
 
-        if (user.instagram.isNotEmpty()) {
-            binding.tvInstagram.text = user.vk
+        if (!user.instagram.isNullOrBlank()) {
+            binding.tvInstagram.text = user.instagram
         } else {
             binding.tvInstagram.visibility = View.GONE
             binding.icInstagram.visibility = View.GONE

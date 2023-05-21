@@ -1,6 +1,5 @@
 package com.example.mangoandroidtest.ui.viewmodel
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,12 +8,12 @@ import com.example.mangoandroidtest.callback.TokenRefreshCallback
 import com.example.mangoandroidtest.core.Avatars
 import com.example.mangoandroidtest.core.Token
 import com.example.mangoandroidtest.core.User
-import com.example.mangoandroidtest.service.RetrofitFactory
-import com.example.mangoandroidtest.service.request.UserUpdateAvatarRequest
-import com.example.mangoandroidtest.service.request.UserUpdateRequest
-import com.example.mangoandroidtest.service.response.GetCurrentUserResponse
-import com.example.mangoandroidtest.service.response.RefreshTokenResponse
-import com.example.mangoandroidtest.service.response.UserUpdateResponse
+import com.example.mangoandroidtest.network.RetrofitFactory
+import com.example.mangoandroidtest.network.request.UserUpdateAvatarRequest
+import com.example.mangoandroidtest.network.request.UserUpdateRequest
+import com.example.mangoandroidtest.network.response.GetCurrentUserResponse
+import com.example.mangoandroidtest.network.response.RefreshTokenResponse
+import com.example.mangoandroidtest.network.response.UserUpdateResponse
 import com.example.mangoandroidtest.ui.repository.UserRepository
 
 class UserViewModel : ViewModel() {
@@ -49,88 +48,11 @@ class UserViewModel : ViewModel() {
         _username.value = value
     }
 
-    private val _birthday = MutableLiveData("")
-    val birthday: LiveData<String> get() = _birthday
-
-    fun setBirthday(value: String) {
-        _birthday.value = value
-    }
-
-    private val _city = MutableLiveData("")
-    val city: LiveData<String> get() = _city
-
-    fun setCity(value: String) {
-        _city.value = value
-    }
-
-    private val _vk = MutableLiveData("")
-    val vk: LiveData<String> get() = _vk
-
-    fun setVK(value: String) {
-        _vk.value = value
-    }
-
-    private val _instagram = MutableLiveData("")
-    val instagram: LiveData<String> get() = _instagram
-
-    fun setInstagram(value: String) {
-        _instagram.value = value
-    }
-
-    private val _status = MutableLiveData("")
-    val status: LiveData<String> get() = _status
-
-    fun setStatus(value: String) {
-        _status.value = value
-    }
-
-    private val _avatar = MutableLiveData("")
-    val avatar: LiveData<String> get() = _avatar
-
-    fun setAvatar(value: String) {
-        _avatar.value = value
-    }
-
-    private val _id = MutableLiveData<Int>()
-    val id: LiveData<Int> get() = _id
-
-    fun setId(value: Int) {
-        _id.value = value
-    }
-
-    private val _last = MutableLiveData("")
-    val last: LiveData<String> get() = _last
-
-    fun setLast(value: String) {
-        _last.value = value
-    }
-
-    private val _online = MutableLiveData(false)
-    val online: LiveData<Boolean> get() = _online
-
-    fun setLast(value: Boolean) {
-        _online.value = value
-    }
-
-    private val _created = MutableLiveData("")
-    val created: LiveData<String> get() = _created
-
-    fun setCreated(value: String) {
-        _created.value = value
-    }
-
     private val _phone = MutableLiveData("")
     val phone: LiveData<String> get() = _phone
 
     fun setPhone(value: String) {
         _phone.value = value
-    }
-
-    private val _completedTask = MutableLiveData<Int>()
-    val completedTask: LiveData<Int> get() = _completedTask
-
-    fun setCompletedTask(value: Int) {
-        _completedTask.value = value
     }
 
     private val _avatars = MutableLiveData<Avatars>()
@@ -159,6 +81,13 @@ class UserViewModel : ViewModel() {
 
     fun setResult(value: Int) {
         _result.value = value
+    }
+
+    private val _closeView = MutableLiveData(false)
+    val closeView: LiveData<Boolean> get() = _closeView
+
+    fun setCloseView(value: Boolean) {
+        _closeView.value = value
     }
 
     fun getCurrentUser() {
@@ -196,13 +125,13 @@ class UserViewModel : ViewModel() {
 
     fun updateCurrentUser() {
         val request = UserUpdateRequest(
-            name.value!!,
-            username.value!!,
-            birthday.value!!,
-            city.value!!,
-            vk.value,
-            instagram.value,
-            status.value,
+            currentUser.value!!.name,
+            currentUser.value!!.username,
+            currentUser.value!!.birthday.toString(),
+            currentUser.value!!.city,
+            currentUser.value!!.vk,
+            currentUser.value!!.instagram,
+            currentUser.value!!.status,
             UserUpdateAvatarRequest(
                 userUpdateAvatar.value!!.filename,
                 userUpdateAvatar.value!!.base_64
@@ -214,6 +143,7 @@ class UserViewModel : ViewModel() {
                 override fun onResult(value: UserUpdateResponse?) {
                     value?.let {
                         setAvatars(it.avatars)
+                        setCloseView(true)
                     }
                 }
 

@@ -1,4 +1,4 @@
-package com.example.mangoandroidtest
+package com.example.mangoandroidtest.ui.view
 
 import android.os.Bundle
 import android.text.Editable
@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.mangoandroidtest.callback.ResultCallback
 import com.example.mangoandroidtest.core.Token
-import com.example.mangoandroidtest.service.RetrofitFactory
-import com.example.mangoandroidtest.service.response.CheckAuthCodeResponse
+import com.example.mangoandroidtest.network.RetrofitFactory
+import com.example.mangoandroidtest.network.response.CheckAuthCodeResponse
 import com.example.mangoandroidtest.ui.viewmodel.AuthViewModel
 import com.example.mangoandroidtest.ui.viewmodel.UserViewModel
 import com.example.mangoandroidtest.util.obtainViewModel
@@ -65,11 +65,9 @@ class VerifyCodeFragment : Fragment() {
 
     private fun initListeners() {
         binding.etVCode.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun afterTextChanged(p0: Editable?) {
                 if (binding.etVCode.text.length == codeLength) {
