@@ -2,21 +2,20 @@ package com.example.mangoandroidtest
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.mangoandroidtest.core.User
 import com.example.mangoandroidtest.ui.viewmodel.UserViewModel
 import com.example.mangoandroidtest.util.FormatUtils
 import com.example.mangoandroidtest.util.obtainViewModel
 import online.example.mangoandroidtest.R
 import online.example.mangoandroidtest.databinding.FragmentUserProfileBinding
-import retrofit2.Callback
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZonedDateTime
 
 
 class UserProfileFragment : Fragment() {
@@ -36,21 +35,26 @@ class UserProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        var tmp = "2023-05-20T20:38:08.241Z"
-//
-//        val date = LocalDate.parse(birthday, FormatUtils.dateFormat)
-//        val dateTime = ZonedDateTime.parse(tmp).toLocalDateTime()
-//
-//        val t = date.dayOfMonth
-//
-//        FormatUtils.identifyZodiacSign(date.dayOfMonth, date.month)
-        initObservers()
-        initViews()
-//        initListeners()
-        userViewModel.getCurrentUser()
-    }
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.user_profile_menu, menu)
+            }
 
-    private fun initViews() {
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.item_user_edit_profile -> {
+//                        findNavController().navigate(R.id.action_go_to_edit_user_profile)
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+        initObservers()
+        userViewModel.getCurrentUser()
     }
 
     private fun initObservers() {
@@ -65,20 +69,54 @@ class UserProfileFragment : Fragment() {
     }
 
     private fun drawData(user: User) {
-        binding.tvUsername.text = user.username
-        binding.tvPhone.text = user.phone
         Log.d("TAG", "drawData: ${user}")
-        binding.tvCity.text = user.city
-//        binding.tvBday.text = user.birthday.ifEmpty { "" }
-//
-//
-//        if (user.birthday.isEmpty()) {
-//            binding.tvZodiac.text = ""
-//        } else {
-//            val dateOfBirth = LocalDate.parse(user.birthday, FormatUtils.dateFormat)
-//            binding.tvZodiac.text =
-//                FormatUtils.identifyZodiacSign(dateOfBirth.dayOfMonth, dateOfBirth.month)
-//        }
+//        TODO ava
+
+        binding.toolbar.title = user.username
+        binding.tvName.text = user.name
+
+        if (user.status.isNotEmpty()) {
+            binding.tvStatus.text =
+                String.format(requireContext().getString(R.string.format_status), user.status)
+        } else {
+            binding.tvStatus.visibility = View.GONE
+        }
+
+        binding.tvPhone.text = user.phone
+
+        if (user.city.isNotEmpty()) {
+            binding.tvCity.text = user.city
+        } else {
+            binding.tvCity.visibility = View.GONE
+            binding.icCity.visibility = View.GONE
+        }
+
+        if (user.birthday.isNotEmpty()) {
+            binding.tvBday.text = user.city
+            val dateOfBirth = LocalDate.parse(user.birthday, FormatUtils.dateFormat)
+            binding.tvZodiac.text =
+                FormatUtils.identifyZodiacSign(dateOfBirth.dayOfMonth, dateOfBirth.month)
+        } else {
+            binding.tvBday.visibility = View.GONE
+            binding.icBday.visibility = View.GONE
+            binding.tvZodiac.visibility = View.GONE
+            binding.icZodiac.visibility = View.GONE
+        }
+
+        if (user.vk.isNotEmpty()) {
+            binding.tvVk.text = user.vk
+        } else {
+            binding.tvVk.visibility = View.GONE
+            binding.icVk.visibility = View.GONE
+        }
+
+        if (user.instagram.isNotEmpty()) {
+            binding.tvInstagram.text = user.vk
+        } else {
+            binding.tvInstagram.visibility = View.GONE
+            binding.icInstagram.visibility = View.GONE
+        }
+
     }
 
 }

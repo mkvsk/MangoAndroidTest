@@ -19,7 +19,8 @@
             android:minHeight="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
             local:popupTheme="@style/ThemeOverlay.MaterialComponents.Toolbar.Popup.Primary."
-            local:title="User profile"
+            local:title="Username"
+            local:menu="@menu/user_profile_menu"
             local:titleTextAppearance="@style/txt_toolbar"
             local:titleTextColor="@color/toolbar_title_color" />
     </com.google.android.material.appbar.AppBarLayout>
@@ -48,7 +49,7 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imageUserPhoto"
-                android:layout_width="0dp"
+                android:layout_width="180dp"
                 android:layout_height="0dp"
                 android:background="@drawable/round_corner_bgr"
                 android:elevation="4dp"
@@ -63,27 +64,40 @@
                 app:strokeWidth="2dp" />
 
             <TextView
-                android:id="@+id/tvUsername"
+                android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="32"
                 android:paddingVertical="10dp"
-                android:text="Username"
+                android:text="Name"
                 android:textAlignment="center"
                 android:textColor="@color/txt_color"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageUserPhoto" />
 
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="32"
+                android:paddingVertical="5dp"
+                android:text="@string/format_status"
+                android:textColor="@color/txt_color"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvName" />
+
             <ImageView
                 android:id="@+id/icPhone"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/icon_w_h"
+                android:layout_height="@dimen/icon_w_h"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/ic_phone"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvUsername" />
+                app:layout_constraintTop_toBottomOf="@id/tvStatus" />
 
             <TextView
                 android:id="@+id/tvPhone"
@@ -93,7 +107,7 @@
                 android:maxLength="32"
                 android:text="123456789"
                 android:textColor="@color/txt_color"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/icPhone"
                 app:layout_constraintLeft_toRightOf="@id/icPhone"
                 app:layout_constraintRight_toRightOf="parent"
@@ -101,8 +115,8 @@
 
             <ImageView
                 android:id="@+id/icCity"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/icon_w_h"
+                android:layout_height="@dimen/icon_w_h"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/ic_location"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -116,7 +130,7 @@
                 android:maxLength="32"
                 android:text="Location"
                 android:textColor="@color/txt_color"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/icCity"
                 app:layout_constraintLeft_toRightOf="@id/icCity"
                 app:layout_constraintRight_toRightOf="parent"
@@ -124,8 +138,8 @@
 
             <ImageView
                 android:id="@+id/icBday"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/icon_w_h"
+                android:layout_height="@dimen/icon_w_h"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/ic_bday"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -139,7 +153,7 @@
                 android:maxLength="32"
                 android:text="1.2.1234"
                 android:textColor="@color/txt_color"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/icBday"
                 app:layout_constraintLeft_toRightOf="@id/icBday"
                 app:layout_constraintRight_toRightOf="parent"
@@ -147,8 +161,8 @@
 
             <ImageView
                 android:id="@+id/icZodiac"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/icon_w_h"
+                android:layout_height="@dimen/icon_w_h"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/ic_zodiac"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -162,12 +176,59 @@
                 android:maxLength="32"
                 android:text="Zodiac"
                 android:textColor="@color/txt_color"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/icZodiac"
                 app:layout_constraintLeft_toRightOf="@id/icZodiac"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@id/icZodiac" />
 
+            <ImageView
+                android:id="@+id/icVk"
+                android:layout_width="@dimen/icon_w_h"
+                android:layout_height="@dimen/icon_w_h"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_vk"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvZodiac" />
+
+            <TextView
+                android:id="@+id/tvVk"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:maxLength="32"
+                android:text="VK"
+                android:textColor="@color/txt_color"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/icVk"
+                app:layout_constraintLeft_toRightOf="@id/icVk"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/icVk" />
+
+            <ImageView
+                android:id="@+id/icInstagram"
+                android:layout_width="@dimen/icon_w_h"
+                android:layout_height="@dimen/icon_w_h"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_instagram"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvVk" />
+
+            <TextView
+                android:id="@+id/tvInstagram"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:maxLength="32"
+                android:text="Instagram"
+                android:textColor="@color/txt_color"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/icInstagram"
+                app:layout_constraintLeft_toRightOf="@id/icInstagram"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/icInstagram" />
+
+<!--            name, vk, inst, -->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 

@@ -13,4 +13,6 @@
     <string name="hint_username">username</string>
     <string name="hint_name">name</string>
     <string name="hint_phone">phone</string>
+    <string name="format_status">Status: %s</string>
+    <string name="item_title_edit_profile">Edit profile</string>
 </resources>
