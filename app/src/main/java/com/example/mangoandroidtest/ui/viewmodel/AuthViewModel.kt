@@ -37,7 +37,7 @@ class AuthViewModel : ViewModel() {
         _username.value = value
     }
 
-    private val _isUserAuthenticated = MutableLiveData(false)
+    private val _isUserAuthenticated = MutableLiveData<Boolean>(null)
     val isUserAuthenticated: LiveData<Boolean> get() = _isUserAuthenticated
 
     fun setIsUserAuthenticated(value: Boolean) {

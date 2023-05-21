@@ -30,6 +30,8 @@
             app:ccp_contentColor="@color/txtColor"
             app:ccp_showArrow="true"
             app:ccp_showFlag="true"
+            app:ccp_autoDetectCountry="true"
+            app:ccp_autoDetectLanguage="true"
             app:ccp_showFullName="false"
             app:ccp_showNameCode="false"
             app:ccp_showPhoneCode="true"

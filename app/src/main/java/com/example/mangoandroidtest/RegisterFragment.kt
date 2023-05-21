@@ -68,15 +68,10 @@ class RegisterFragment : Fragment() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-//                if (p0!!.length > 4 && usernameValidate(binding.etUsername)) {
-//                    checkData()
-//                } else {
-//                    binding.btnRegister.isEnabled = false
-//                }
-                if (p0!!.isNotEmpty()) {
+
+                if (p0!!.isNotEmpty() && p0.length > 4) {
                     checkData()
                 }
-
             }
 
         })

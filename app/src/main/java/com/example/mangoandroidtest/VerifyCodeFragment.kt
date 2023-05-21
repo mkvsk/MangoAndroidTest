@@ -48,10 +48,12 @@ class VerifyCodeFragment : Fragment() {
 
     private fun initObservers() {
         authViewModel.isUserAuthenticated.observe(viewLifecycleOwner) {
-            if (it) {
-                findNavController().navigate(R.id.action_go_to_user_profile)
-            } else {
-                findNavController().navigate(R.id.action_go_to_register)
+            if (it != null) {
+                if (it) {
+                    findNavController().navigate(R.id.action_go_to_user_profile)
+                } else if (!it) {
+                    findNavController().navigate(R.id.action_go_to_register)
+                }
             }
         }
     }
