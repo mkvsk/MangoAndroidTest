@@ -6,58 +6,94 @@
     android:orientation="vertical"
     tools:context="com.example.mangoandroidtest.AuthFragment">
 
-    <LinearLayout
-        android:id="@+id/ll"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:ignore="MissingConstraints">
 
-        <com.hbb20.CountryCodePicker
-            android:id="@+id/countryCodePicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="4dp"
-            app:ccpDialog_keyboardAutoPopup="false"
-            app:ccpDialog_textColor="@color/txtColor"
-            app:ccp_arrowSize="16sp"
-            app:ccp_autoFormatNumber="true"
-            app:ccp_contentColor="@color/txtColor"
-            app:ccp_showArrow="true"
-            app:ccp_showFlag="true"
-            app:ccp_autoDetectCountry="true"
-            app:ccp_autoDetectLanguage="true"
-            app:ccp_showFullName="false"
-            app:ccp_showNameCode="false"
-            app:ccp_showPhoneCode="true"
-            app:ccp_textSize="16sp" />
-
-        <EditText
-            android:id="@+id/etPhoneNumber"
+        <androidx.appcompat.widget.Toolbar xmlns:local="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:hint="@string/phone_number"
-            android:inputType="phone"
-            android:maxLength="29"
-            android:textColor="@color/txtColor"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:background="@color/toolbar_color"
+            android:minHeight="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            local:popupTheme="@style/ThemeOverlay.MaterialComponents.Toolbar.Popup.Primary."
+            local:title="@string/title_auth"
+            local:titleTextAppearance="@style/txt_toolbar"
+            local:titleTextColor="@color/toolbar_title_color" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <Button
-        android:id="@+id/btnCheckUser"
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        style="@style/my_material_card"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:enabled="false"
-        android:text="@string/btn_next"
+        android:layout_marginHorizontal="10dp"
+        app:cardElevation="4dp"
+        app:cardPreventCornerOverlap="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll" />
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout">
+
+        <LinearLayout
+            android:id="@+id/llVertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/round_corner_bgr"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/countryCodePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    app:ccpDialog_keyboardAutoPopup="false"
+                    app:ccpDialog_textColor="@color/txt_color"
+                    app:ccp_arrowSize="16sp"
+                    app:ccp_autoDetectCountry="true"
+                    app:ccp_autoDetectLanguage="true"
+                    app:ccp_autoFormatNumber="true"
+                    app:ccp_contentColor="@color/txt_color"
+                    app:ccp_countryAutoDetectionPref="LOCALE_ONLY"
+                    app:ccp_showArrow="true"
+                    app:ccp_showFlag="true"
+                    app:ccp_showFullName="false"
+                    app:ccp_showNameCode="false"
+                    app:ccp_showPhoneCode="true"
+                    app:ccp_textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/etPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/et_bgr_color"
+                    android:hint="@string/phone_number"
+                    android:inputType="phone"
+                    android:maxLength="29"
+                    android:textColor="@color/txt_color"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnCheckUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:enabled="false"
+                android:text="@string/btn_next" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

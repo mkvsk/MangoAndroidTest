@@ -1,18 +1,53 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MangoAndroidTest" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.MangoAndroidTest" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/red_200</item>
+        <item name="colorPrimaryVariant">@color/red_700</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorSecondary">@color/pink_200</item>
+        <item name="colorSecondaryVariant">@color/pink_200</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-    <color name="txtColor">@color/white</color>
 
+    <color name="txt_color">@color/white</color>
+    <color name="et_bgr_color">@color/black</color>
+    <color name="stroke_color">@color/red_200</color>
+    <color name="ic_color">@color/red_200</color>
+
+    <!--toolbar-->
+    <color name="toolbar_color">@color/red_500</color>
+    <color name="toolbar_title_color">@color/grey_900</color>
+
+    <style name="ThemeOverlay.MaterialComponents.Toolbar.Popup.Primary." parent="Theme.AppCompat.Light">
+        <item name="android:colorBackground">@color/toolbar_color</item>
+        <item name="android:textColor">@color/txt_color</item>
+    </style>
+
+    <style name="txt_toolbar">
+        <item name="android:textSize">20sp</item>
+        <item name="titleTextColor">@color/txt_color</item>
+    </style>
+    <!--    cardView-->
+    <color name="theme_cardview_bgr">@color/grey_900</color>
+
+    <style name="my_material_card" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/theme_cardview_bgr</item>
+        <item name="android:shadowRadius">10</item>
+        <item name="shapeAppearanceOverlay">
+            @style/card_custom_corners
+        </item>
+    </style>
+
+    <style name="card_custom_corners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomRight">20dp</item>
+        <item name="cornerSizeBottomLeft">20dp</item>
+    </style>
 </resources>

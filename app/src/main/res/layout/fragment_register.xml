@@ -6,52 +6,93 @@
     android:orientation="vertical"
     tools:context="com.example.mangoandroidtest.RegisterFragment">
 
-    <LinearLayout
-        android:id="@+id/ll"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="50dp"
-        android:gravity="center"
-        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.Toolbar xmlns:local="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/toolbar_color"
+            android:minHeight="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            local:popupTheme="@style/ThemeOverlay.MaterialComponents.Toolbar.Popup.Primary."
+            local:title="@string/title_register"
+            local:titleTextAppearance="@style/txt_toolbar"
+            local:titleTextColor="@color/toolbar_title_color" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        style="@style/my_material_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        app:cardElevation="4dp"
+        app:cardPreventCornerOverlap="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout">
 
-        <EditText
-            android:id="@+id/etPhone"
+        <LinearLayout
+            android:id="@+id/llHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="phone"
-            android:enabled="false"
-            android:maxLength="30"
-            android:textColor="@color/txtColor"
-            android:textSize="16sp" />
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/etName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="name"
-            android:maxLength="128"
-            android:textColor="@color/txtColor"
-            android:textSize="16sp" />
+            <EditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/round_corner_bgr"
+                android:enabled="false"
+                android:hint="@string/hint_phone"
+                android:maxLength="30"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/txt_color"
+                android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/etUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="username"
-            android:maxLength="32"
-            android:textColor="@color/txtColor"
-            android:textSize="16sp" />
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_corner_bgr"
+                android:hint="@string/hint_name"
+                android:maxLength="128"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/txt_color"
+                android:textSize="16sp" />
 
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:text="Register" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_corner_bgr"
+                android:hint="@string/hint_username"
+                android:maxLength="32"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/txt_color"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:enabled="false"
+                android:text="@string/btn_register" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

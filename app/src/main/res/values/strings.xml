@@ -6,4 +6,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_enter_verification_code">Enter verification code</string>
     <string name="btn_submit">Submit</string>
+    <string name="title_auth">Authorization</string>
+    <string name="title_verify_code">Verification</string>
+    <string name="title_register">Register</string>
+    <string name="btn_register">Register</string>
+    <string name="hint_username">username</string>
+    <string name="hint_name">name</string>
+    <string name="hint_phone">phone</string>
 </resources>
